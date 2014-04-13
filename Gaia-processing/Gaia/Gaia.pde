@@ -100,6 +100,8 @@ void setup() {
   } else {
     ozoneDamageClass = 1; 
   }
+  
+  println("Ozone damage class: ", ozoneDamageClass);
 }
 
 
