@@ -2,15 +2,27 @@
 
 PImage img;
 color pixelColor;
-float[][] r; 
-float[][] g;
-float[][] b;
-float[][] a;
+float[][] r,g,b,a;
+float[][] r1,g1,b1,a1;
+float[][] r2,g2,b2,a2;
 
 void setup() {
   
   size(400, 400);
   
+
+
+  getImageAvg("fideo.jpg");
+  r1 = r;
+  g1 = g;
+  b1 = b;
+  a1 = a;
+  
+  
+
+}
+
+void getImageAvg(String image) {
   img = loadImage("fideo.jpg");
   r = new float[4][4]; 
   g = new float[4][4];
@@ -46,17 +58,7 @@ void setup() {
        b[i][j] = b[i][j]/((img.width/4*img.height/4)-a[i][j]);
             
      } 
-  }
-
-  
-  println("R:", r[1][1]);
-  println("G:", g[1][1]);
-  println("B:", b[1][1]);
-  
-  color color1 = color(244,244,244);
-  color color2 = color(234,244,244);
-  println(color1==color2);
- 
+  } 
 }
 
 void draw() {
