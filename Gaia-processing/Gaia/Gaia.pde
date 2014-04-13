@@ -6,22 +6,28 @@ float[][] r,g,b,a;
 float[][] r1,g1,b1,a1;
 float[][] r2,g2,b2,a2;
 float ar, ag, ab;
+float[][] rDiff, gDiff, bDiff;
+float[][] damageLevel;
 
 void setup() {
   
-  size(400, 400);
+  size(558, 413);
   
+  rDiff = new float[4][4];
+  gDiff = new float[4][4];
+  bDiff = new float[4][4];
+  damageLevel = new float[4][4];
 
 
-  getImageAvgColors("fideo.jpg");
+  getImageAvgColors("hoja1a.png");
   r1 = r;
   g1 = g;
   b1 = b;
   a1 = a;
   
-  getImageAvgColors("fideo.jpg");
+  getImageAvgColors("hoja1b.png");
   r2 = r;
-  rg2 = g;
+  g2 = g;
   b2 = b;
   a2 = a;
   
@@ -41,16 +47,17 @@ void setup() {
 //  println(String.format("AR: %.2f, AG: %.2f, AB: %.2f", ar, ag, ab));
   
   
-  float rDiff, gDiff, bDiff;
+  
   
   //Compare RGB values of each area in each image
   for (int i = 0; i < 4; i++) {
      for (int j = 0; j < 4; j++) {
        
-       rDiff = r1[i][j] - r2[i][j];
-       gDiff = g1[i][j] - g2[i][j];
-       bDiff = b1[i][j] - b2[i][j];
-       
+       rDiff[i][j] = r1[i][j] - r2[i][j];
+       gDiff[i][j] = g1[i][j] - g2[i][j];
+       bDiff[i][j] = b1[i][j] - b2[i][j];
+       damageLevel[i][j] = abs(rDiff[i][j]) + abs(gDiff[i][j]);
+       println(String.format("%d,%d damage level: %f", i, j, damageLevel[i][j]));
      }
   }
    
@@ -58,7 +65,7 @@ void setup() {
 }
 
 void getImageAvgColors(String image) {
-  img = loadImage("fideo.jpg");
+  img = loadImage(image);
   r = new float[4][4]; 
   g = new float[4][4];
   b = new float[4][4];
@@ -102,11 +109,31 @@ void draw() {
   //Draw each area's average color  
   for (int i = 0; i < 4; i++) {
      for (int j = 0; j < 4; j++) {
-        fill((int)r[i][j], (int)g[i][j], (int)b[i][j]);        
+        fill((int)r[i][j], (int)g[i][j], (int)b[i][j]);
+        
         rect(i*100, j*100, 100, 100);
         
      } 
   }
+  
+  
+
+  
+//Draw affected image
+  image (img, 0,0);
+  
+//Draw a rectangle on most affected areas  
+  for (int i = 0; i < 4; i++) {
+     for (int j = 0; j < 4; j++) {
+       if (abs(damageLevel[i][j]) > 15) {
+          fill(255, 0, 0, 50);      
+          stroke(255, 0, 50);        
+          rect(i*img.width/4, j*img.height/4, img.width/4, img.height/4);
+       }
+        
+     } 
+  }  
+    
   
 //    println("R:", r[0][0]/(img.width/4*img.height/4));
 //  println("G:", g[0][0]/(img.width/4*img.height/4));
