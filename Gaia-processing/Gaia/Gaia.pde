@@ -5,6 +5,7 @@ color pixelColor;
 float[][] r,g,b,a;
 float[][] r1,g1,b1,a1;
 float[][] r2,g2,b2,a2;
+float ar, ag, ab;
 
 void setup() {
   
@@ -12,17 +13,51 @@ void setup() {
   
 
 
-  getImageAvg("fideo.jpg");
+  getImageAvgColors("fideo.jpg");
   r1 = r;
   g1 = g;
   b1 = b;
   a1 = a;
   
+  getImageAvgColors("fideo.jpg");
+  r2 = r;
+  rg2 = g;
+  b2 = b;
+  a2 = a;
   
+  
+//  // Get average color from all areas  
+//  for (int i = 0; i < 4; i++) {
+//     for (int j = 0; j < 4; j++) {
+//           ar += r[i][j];
+//           ag += g[i][j];
+//           ab += b[i][j];
+//     }
+//  }
+//  ar = ar/16;
+//  ag = ag/16;
+//  ab = ab/16;
+//  
+//  println(String.format("AR: %.2f, AG: %.2f, AB: %.2f", ar, ag, ab));
+  
+  
+  float rDiff, gDiff, bDiff;
+  
+  //Compare RGB values of each area in each image
+  for (int i = 0; i < 4; i++) {
+     for (int j = 0; j < 4; j++) {
+       
+       rDiff = r1[i][j] - r2[i][j];
+       gDiff = g1[i][j] - g2[i][j];
+       bDiff = b1[i][j] - b2[i][j];
+       
+     }
+  }
+   
 
 }
 
-void getImageAvg(String image) {
+void getImageAvgColors(String image) {
   img = loadImage("fideo.jpg");
   r = new float[4][4]; 
   g = new float[4][4];
