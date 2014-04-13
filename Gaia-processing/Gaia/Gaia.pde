@@ -29,6 +29,8 @@ void setup() {
     }
   }
 
+
+
   for (int i = 0; i < 4; i++) {
      for (int j = 0; j < 4; j++) {
        r[i][j] = r[i][j]/(img.width/4*img.height/4);
@@ -42,6 +44,10 @@ void setup() {
   println("R:", r[1][1]);
   println("G:", g[1][1]);
   println("B:", b[1][1]);
+  
+  color color1 = color(244,244,244);
+  color color2 = color(234,244,244);
+  println(color1==color2);
  
 }
 
